@@ -1,0 +1,32 @@
+node_modules
+
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+dist
+.vscode
+.astro
+
+.env*
+
+env.d.ts
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+.vscodes
+
+# assets folder
+./src/assets
+!./src/assets/**/*.ts
+
+# vite
+.vite
