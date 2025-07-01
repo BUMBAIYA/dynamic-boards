@@ -1,10 +1,9 @@
-import { nanoid } from "nanoid";
-
+import { generateRandomId } from "@/core/utils/generateRandomId";
 import type { DynamicBoardDNDCard } from "@/core/types";
 
-export const INITIAL_DND_DATA: DynamicBoardDNDCard[] = [
+export const MOCK_CARD_DATA: DynamicBoardDNDCard[] = [
   {
-    id: nanoid(),
+    id: generateRandomId(),
     layout: {
       row: 0,
       col: 0,
@@ -12,7 +11,7 @@ export const INITIAL_DND_DATA: DynamicBoardDNDCard[] = [
     title: "Card 1",
   },
   {
-    id: nanoid(),
+    id: generateRandomId(),
     layout: {
       row: 0,
       col: 1,
@@ -20,7 +19,7 @@ export const INITIAL_DND_DATA: DynamicBoardDNDCard[] = [
     title: "Card 2",
   },
   {
-    id: nanoid(),
+    id: generateRandomId(),
     layout: {
       row: 0,
       col: 2,
@@ -28,7 +27,7 @@ export const INITIAL_DND_DATA: DynamicBoardDNDCard[] = [
     title: "Card 3",
   },
   {
-    id: nanoid(),
+    id: generateRandomId(),
     layout: {
       row: 1,
       col: 0,
@@ -36,7 +35,7 @@ export const INITIAL_DND_DATA: DynamicBoardDNDCard[] = [
     title: "Card 4",
   },
   {
-    id: nanoid(),
+    id: generateRandomId(),
     layout: {
       row: 1,
       col: 1,
