@@ -4,6 +4,7 @@ import type { DynamicBoardDNDCard } from "@/core/types";
 
 export type DynamicBoardContextType = {
   cards: DynamicBoardDNDCard[];
+  rows: DynamicBoardDNDCard[][];
 };
 
 export const DynamicBoardContext =
