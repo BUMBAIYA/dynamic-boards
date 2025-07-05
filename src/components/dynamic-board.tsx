@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 
+import { DynamicBoardRow } from "@/components/dynamic-board-row";
 import { DynamicBoardCardSkeleton } from "@/components/dynamic-board-card-skeleton";
 import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
 
@@ -13,14 +14,18 @@ export function DynamicBoard() {
 
   return (
     <div className="flex flex-1 flex-col gap-3 p-4">
-      {rows.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex gap-3">
-          {row.map((card) => (
-            <Suspense key={card.id} fallback={<DynamicBoardCardSkeleton />}>
-              <DynamicBoardCard card={card} />
-            </Suspense>
-          ))}
-        </div>
+      {rows.map((row) => (
+        <DynamicBoardRow key={row.id} row={row}>
+          {({ row, ref }) => (
+            <div ref={ref} className="flex gap-3">
+              {row.cards.map((card) => (
+                <Suspense key={card.id} fallback={<DynamicBoardCardSkeleton />}>
+                  <DynamicBoardCard card={card} />
+                </Suspense>
+              ))}
+            </div>
+          )}
+        </DynamicBoardRow>
       ))}
     </div>
   );

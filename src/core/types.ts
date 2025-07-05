@@ -6,3 +6,10 @@ export type DynamicBoardDNDCard = {
   };
   title: string;
 };
+
+export type DynamicBoardDNDRow = {
+  id: string;
+  // To get the row element dimensions and position
+  rowElementRef?: HTMLDivElement;
+  cards: DynamicBoardDNDCard[];
+};

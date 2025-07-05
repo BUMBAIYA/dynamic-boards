@@ -1,8 +1,9 @@
-import type { DynamicBoardDNDCard } from "@/core/types";
+import { generateRandomId } from "@/core/utils/generateRandomId";
+import type { DynamicBoardDNDCard, DynamicBoardDNDRow } from "@/core/types";
 
 export function buildDynamicBoardGrid(
   cards: DynamicBoardDNDCard[],
-): DynamicBoardDNDCard[][] {
+): DynamicBoardDNDRow[] {
   const rowMap = new Map<number, DynamicBoardDNDCard[]>();
 
   cards.forEach((card) => {
@@ -13,7 +14,7 @@ export function buildDynamicBoardGrid(
     rowMap.get(row)!.push(card);
   });
 
-  return Array.from(rowMap.entries())
+  const rowCards = Array.from(rowMap.entries())
     .sort(([a], [b]) => a - b)
     .map(([rowIndex, rowCards]) => {
       const sortedCards = rowCards.sort((a, b) => a.layout.col - b.layout.col);
@@ -29,4 +30,9 @@ export function buildDynamicBoardGrid(
 
       return normalizedRowCards;
     });
+
+  return rowCards.map((rowCards) => ({
+    id: generateRandomId(),
+    cards: rowCards,
+  }));
 }
