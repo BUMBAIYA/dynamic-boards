@@ -16,9 +16,9 @@ export function DynamicBoard() {
     <div className="flex flex-1 flex-col gap-3 p-4">
       {rows.map((row) => (
         <DynamicBoardRow key={row.id} row={row}>
-          {({ row, ref }) => (
-            <div ref={ref} className="flex gap-3">
-              {row.cards.map((card) => (
+          {({ boardRow, boardRowRef }) => (
+            <div ref={boardRowRef} className="flex gap-3">
+              {boardRow.cards.map((card) => (
                 <Suspense key={card.id} fallback={<DynamicBoardCardSkeleton />}>
                   <DynamicBoardCard card={card} />
                 </Suspense>
