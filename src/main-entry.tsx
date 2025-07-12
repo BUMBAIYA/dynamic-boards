@@ -1,5 +1,5 @@
 import { DynamicBoardWrapper } from "@/components/dynamic-board-wrapper";
 
-export default function App() {
+export function MainEntry() {
   return <DynamicBoardWrapper />;
 }
