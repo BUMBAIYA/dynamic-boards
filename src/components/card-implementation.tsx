@@ -1,0 +1,21 @@
+import type { DynamicBoardCardChildrenProps } from "@/core/components/dynamic-board-card";
+import type { MockCardContent } from "@/types";
+
+export type CardImplementationProps =
+  DynamicBoardCardChildrenProps<MockCardContent>;
+
+export function CardImplementation({
+  card,
+  dragHandleRef,
+}: CardImplementationProps) {
+  return (
+    <div className="flex h-full min-h-60 flex-1 flex-col rounded-lg border border-gray-200 bg-white">
+      <div
+        ref={dragHandleRef}
+        className="min-h-10 cursor-grab border-b border-gray-200 p-3 active:cursor-grabbing"
+      >
+        <h3 className="text-lg font-medium">{card.title}</h3>
+      </div>
+    </div>
+  );
+}
