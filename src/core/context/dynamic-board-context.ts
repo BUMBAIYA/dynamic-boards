@@ -157,6 +157,13 @@ export interface DynamicBoardContextType<CardContent = unknown> {
     position?: number,
   ) => void;
   /**
+   * Finds a row by its ID.
+   *
+   * @param rowId - ID of the row to find
+   * @returns The found row or null if not found
+   */
+  findRow: (rowId: DynamicBoardRowId) => DynamicBoardRow<CardContent> | null;
+  /**
    * Finds a card by its ID.
    *
    * @param cardId - ID of the card to find

@@ -24,7 +24,7 @@ export function DynamicBoard() {
                 {isDraggingOver && (
                   <div className="bg-primary-light absolute inset-0" />
                 )}
-                {row.cards.map((card, idx) => (
+                {row.cards.map((card, cardIdx) => (
                   <Fragment key={card.id}>
                     <DynamicBoardCard
                       key={card.id}
@@ -37,11 +37,11 @@ export function DynamicBoard() {
                         <CardImplementation key={card.id} {...cardProps} />
                       )}
                     </DynamicBoardCard>
-                    {idx !== row.cards.length - 1 &&
+                    {cardIdx !== row.cards.length - 1 &&
                       !boardConfig.disableResizeCardWidth && (
                         <DynamicBoardCardResizeHandle
                           rowId={row.id}
-                          cardIndex={idx}
+                          cardIndex={cardIdx}
                           height={rowHeight}
                         />
                       )}

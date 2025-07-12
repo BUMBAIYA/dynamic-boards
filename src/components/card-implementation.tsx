@@ -16,6 +16,9 @@ export function CardImplementation({
       >
         <h3 className="text-lg font-medium">{card.title}</h3>
       </div>
+      <div className="flex-1 p-3">
+        <p>{card.description}</p>
+      </div>
     </div>
   );
 }

@@ -213,15 +213,15 @@ export function DynamicBoardProvider<Content = unknown>({
     [],
   );
 
-  const findCard = useCallback(
-    (cardId: number | string): DynamicBoardCard<Content> | null => {
+  const findCard: DynamicBoardContextType<Content>["findCard"] = useCallback(
+    (cardId) => {
       return cardsMap.get(cardId) || null;
     },
     [cardsMap],
   );
 
-  const findRow = useCallback(
-    (rowId: string): DynamicBoardRow<Content> | null => {
+  const findRow: DynamicBoardContextType<Content>["findRow"] = useCallback(
+    (rowId) => {
       return rows.find((r) => r.id === rowId) || null;
     },
     [rows],
@@ -288,13 +288,14 @@ export function DynamicBoardProvider<Content = unknown>({
    *
    * @param cards - Array of cards to load into the dashboard
    */
-  const loadBoardCards = useCallback(
-    (cards: DynamicBoardCard<Content>[]) => {
-      const newRows = buildDynamicBoardRowsFromCards(cards);
-      updateRows(newRows);
-    },
-    [updateRows],
-  );
+  const loadBoardCards: DynamicBoardContextType<Content>["loadBoardCards"] =
+    useCallback(
+      (cards) => {
+        const newRows = buildDynamicBoardRowsFromCards(cards);
+        updateRows(newRows);
+      },
+      [updateRows],
+    );
 
   /**
    * Moves a card from one row to another.
@@ -305,13 +306,8 @@ export function DynamicBoardProvider<Content = unknown>({
    * @param targetRowId - ID of the target row
    * @param position - Optional position in the target row
    */
-  const moveCard = useCallback(
-    (
-      cardId: DynamicBoardCardId,
-      sourceRowId: DynamicBoardRowId,
-      targetRowId: DynamicBoardRowId,
-      position?: number,
-    ) => {
+  const moveCard: DynamicBoardContextType<Content>["moveCard"] = useCallback(
+    (cardId, sourceRowId, targetRowId, position) => {
       setRows((prevRows) => {
         const sourceRowIndex = prevRows.findIndex(
           (row) => row.id === sourceRowId,
@@ -967,81 +963,83 @@ export function DynamicBoardProvider<Content = unknown>({
       [rows],
     );
 
-  const handleRowResizeMove = useCallback(
-    (e: { clientY: number }) => {
-      if (!rowResizing) return;
+  const handleRowResizeMove: DynamicBoardContextType<Content>["handleRowResizeMove"] =
+    useCallback(
+      (pointer) => {
+        if (!rowResizing) return;
 
-      // Use local state update without triggering callbacks
-      setRows((prevRows) => {
-        const newRows = prevRows.map((row) => {
-          if (row.id !== rowResizing.rowId) return row;
+        // Use local state update without triggering callbacks
+        setRows((prevRows) => {
+          const newRows = prevRows.map((row) => {
+            if (row.id !== rowResizing.rowId) return row;
 
-          const deltaY = e.clientY - rowResizing.startY;
-          const newHeight = Math.min(
-            _finalBoardConfig.maxHeight,
-            Math.max(
-              _finalBoardConfig.minHeight,
-              rowResizing.startHeight + deltaY,
-            ),
+            const deltaY = pointer.clientY - rowResizing.startY;
+            const newHeight = Math.min(
+              _finalBoardConfig.maxHeight,
+              Math.max(
+                _finalBoardConfig.minHeight,
+                rowResizing.startHeight + deltaY,
+              ),
+            );
+
+            // Update all cards in the row to have the same height
+            const updatedCards = row.cards.map((card) => ({
+              ...card,
+              layoutJson: {
+                ...card.layoutJson,
+                height: newHeight,
+              },
+            }));
+
+            return {
+              ...row,
+              cards: updatedCards,
+            };
+          });
+
+          // Update cardsMap without triggering callbacks
+          setCardsMap(createDynamicBoardCardsMap(newRows));
+          return newRows;
+        });
+      },
+      [rowResizing, _finalBoardConfig.minHeight, _finalBoardConfig.maxHeight],
+    );
+
+  const handleRowResizeEnd: DynamicBoardContextType<Content>["handleRowResizeEnd"] =
+    useCallback(() => {
+      if (rowResizing) {
+        const row = rows.find((r) => r.id === rowResizing.rowId);
+        if (row) {
+          // Check if any card's height actually changed
+          const hasHeightChanged = row.cards.some(
+            (card) => card.layoutJson.height !== rowResizing.startHeight,
           );
 
-          // Update all cards in the row to have the same height
-          const updatedCards = row.cards.map((card) => ({
-            ...card,
-            layoutJson: {
-              ...card.layoutJson,
-              height: newHeight,
-            },
-          }));
-
-          return {
-            ...row,
-            cards: updatedCards,
-          };
-        });
-
-        // Update cardsMap without triggering callbacks
-        setCardsMap(createDynamicBoardCardsMap(newRows));
-        return newRows;
-      });
-    },
-    [rowResizing, _finalBoardConfig.minHeight, _finalBoardConfig.maxHeight],
-  );
-
-  const handleRowResizeEnd = useCallback(() => {
-    if (rowResizing) {
-      const row = rows.find((r) => r.id === rowResizing.rowId);
-      if (row) {
-        // Check if any card's height actually changed
-        const hasHeightChanged = row.cards.some(
-          (card) => card.layoutJson.height !== rowResizing.startHeight,
-        );
-
-        if (hasHeightChanged) {
-          // Get all cards that had their height updated
-          const updatedCards = row.cards.map((card) => ({
-            ...card,
-            layoutJson: {
-              ...card.layoutJson,
-              height: row.cards[0].layoutJson.height, // All cards in row have same height
-            },
-          }));
-
-          // Trigger callback with updated row and cards
-          onLayoutChange?.({
-            updatedRows: [
-              {
-                ...row,
-                cards: updatedCards,
+          if (hasHeightChanged) {
+            // Get all cards that had their height updated
+            const updatedCards = row.cards.map((card) => ({
+              ...card,
+              layoutJson: {
+                ...card.layoutJson,
+                height: row.cards[0].layoutJson.height, // All cards in row have same height
               },
-            ],
-            updatedCards,
-          });
+            }));
+
+            // Trigger callback with updated row and cards
+            onLayoutChange?.({
+              updatedRows: [
+                {
+                  ...row,
+                  cards: updatedCards,
+                },
+              ],
+              updatedCards,
+            });
+          }
         }
       }
-    }
-    setRowResizing(null);
-  }, [rows, rowResizing, onLayoutChange]);
+      setRowResizing(null);
+    }, [rows, rowResizing, onLayoutChange]);
 
   useEffect(() => {
     if (rowResizing) {
@@ -1134,6 +1132,7 @@ export function DynamicBoardProvider<Content = unknown>({
     handleRowResizeEnd,
     moveCard,
     findCard,
+    findRow,
     deleteCard,
     addCard,
     updateCard,
