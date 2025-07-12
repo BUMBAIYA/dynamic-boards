@@ -10,11 +10,11 @@ const DynamicBoardCard = lazy(async () => {
 });
 
 export function DynamicBoard() {
-  const { rows } = useDynamicBoard();
+  const { boardGrid } = useDynamicBoard();
 
   return (
     <div className="flex flex-1 flex-col gap-3 p-4">
-      {rows.map((row) => (
+      {boardGrid.map((row) => (
         <DynamicBoardRow key={row.id} row={row}>
           {({ boardRow, boardRowRef }) => (
             <div ref={boardRowRef} className="flex gap-3">

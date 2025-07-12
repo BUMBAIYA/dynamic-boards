@@ -11,11 +11,11 @@ export function DynamicBoardProvider({
   children: React.ReactNode;
 }) {
   const [cards] = useState<DynamicBoardDNDCard[]>(MOCK_CARD_DATA);
-  const [rows] = useState(buildDynamicBoardGrid(cards));
+  const [boardGrid] = useState(buildDynamicBoardGrid(cards));
 
   const value = {
     cards: cards,
-    rows: rows,
+    boardGrid: boardGrid,
   };
 
   return (
