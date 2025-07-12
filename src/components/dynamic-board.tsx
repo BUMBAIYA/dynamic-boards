@@ -1,27 +1,60 @@
-import { lazy, Suspense } from "react";
+import { Fragment } from "react";
 
-import { DynamicBoardCardSkeleton } from "@/components/dynamic-board-card-skeleton";
+import { DynamicBoardWindowAutoScroll } from "@/core/components/dynamic-board-window-auto-scroll";
+import { DynamicBoardRow } from "@/core/components/dynamic-board-row";
+import { DynamicBoardCard } from "@/core/components/dynamic-board-card";
+import { DynamicBoardCardResizeHandle } from "@/core/components/dynamic-board-card-resize-handle";
 import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
-
-const DynamicBoardCard = lazy(async () => {
-  const { DynamicBoardCard } = await import("@/components/dynamic-board-card");
-  return { default: DynamicBoardCard };
-});
+import { CardImplementation } from "@/components/card-implementation";
+import type { MockCardContent } from "@/types";
 
 export function DynamicBoard() {
-  const { rows } = useDynamicBoard();
+  const { rows, boardConfig } = useDynamicBoard<MockCardContent>();
 
   return (
-    <div className="flex flex-1 flex-col gap-3 p-4">
-      {rows.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex gap-3">
-          {row.map((card) => (
-            <Suspense key={card.id} fallback={<DynamicBoardCardSkeleton />}>
-              <DynamicBoardCard card={card} />
-            </Suspense>
-          ))}
-        </div>
-      ))}
-    </div>
+    <DynamicBoardWindowAutoScroll maxScrollSpeed="fast">
+      <div className="flex flex-1 flex-col p-4">
+        {rows.map((row) => (
+          <DynamicBoardRow key={row.id} row={row}>
+            {({ rowId, row, rowHeight, rowRef, isDraggingOver }) => (
+              <div className="flex w-full">
+                <div
+                  key={rowId}
+                  ref={rowRef}
+                  className="relative flex flex-1 items-stretch"
+                >
+                  {isDraggingOver && (
+                    <div className="bg-primary-light absolute inset-0" />
+                  )}
+                  {row.cards.map((card, cardIdx) => (
+                    <Fragment key={card.id}>
+                      <DynamicBoardCard
+                        key={card.id}
+                        card={card}
+                        rowId={row.id}
+                        paddingX={8}
+                        paddingY={8}
+                      >
+                        {(cardProps) => (
+                          <CardImplementation key={card.id} {...cardProps} />
+                        )}
+                      </DynamicBoardCard>
+                      {cardIdx !== row.cards.length - 1 &&
+                        !boardConfig.disableResizeCardWidth && (
+                          <DynamicBoardCardResizeHandle
+                            rowId={row.id}
+                            cardIndex={cardIdx}
+                            height={rowHeight}
+                          />
+                        )}
+                    </Fragment>
+                  ))}
+                </div>
+              </div>
+            )}
+          </DynamicBoardRow>
+        ))}
+      </div>
+    </DynamicBoardWindowAutoScroll>
   );
 }
