@@ -8,7 +8,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     layoutJson: {
       row: 0,
       col: 0,
-      widthPercentage: 100,
+      widthPercentage: 50,
       height: 100,
     },
     title: "Card 1",
@@ -19,7 +19,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     layoutJson: {
       row: 0,
       col: 1,
-      widthPercentage: 100,
+      widthPercentage: 50,
       height: 100,
     },
     title: "Card 2",
@@ -28,9 +28,9 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
   {
     id: generateRandomId(),
     layoutJson: {
-      row: 0,
-      col: 2,
-      widthPercentage: 100,
+      row: 1,
+      col: 0,
+      widthPercentage: 30,
       height: 100,
     },
     title: "Card 3",
@@ -40,8 +40,8 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     id: generateRandomId(),
     layoutJson: {
       row: 1,
-      col: 0,
-      widthPercentage: 100,
+      col: 1,
+      widthPercentage: 30,
       height: 100,
     },
     title: "Card 4",
@@ -51,11 +51,33 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     id: generateRandomId(),
     layoutJson: {
       row: 1,
-      col: 1,
-      widthPercentage: 100,
+      col: 2,
+      widthPercentage: 40,
       height: 100,
     },
     title: "Card 5",
     description: "Description 5",
+  },
+  {
+    id: generateRandomId(),
+    layoutJson: {
+      row: 2,
+      col: 0,
+      widthPercentage: 50,
+      height: 100,
+    },
+    title: "Card 6",
+    description: "Description 6",
+  },
+  {
+    id: generateRandomId(),
+    layoutJson: {
+      row: 2,
+      col: 1,
+      widthPercentage: 50,
+      height: 100,
+    },
+    title: "Card 7",
+    description: "Description 7",
   },
 ];
