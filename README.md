@@ -295,6 +295,85 @@ const {
 **Returns:** The complete context value with all board functionality
 **Throws:** Error if used outside of DynamicBoardProvider
 
+### useDynamicBoardCardResize
+
+A custom hook to handle card width resizing. You can use this hook to create your own custom resize handles for card width adjustment:
+
+```tsx
+const { state, dividerRef } = useDynamicBoardCardResize({
+  rowId: "row-1",
+  cardIndex: 0,
+});
+```
+
+**Props:**
+
+- `rowId`: The unique identifier of the row containing the card
+- `cardIndex`: The index of the card in the row
+
+**Returns:**
+
+- `state`: Current resize state (`"idle" | "dragging"`)
+- `dividerRef`: Reference to attach to your custom resize handle element
+
+**Example Usage:**
+
+```tsx
+function CustomCardResizeHandle({ rowId, cardIndex }) {
+  const { state, dividerRef } = useDynamicBoardCardResize({
+    rowId,
+    cardIndex,
+  });
+
+  return (
+    <div
+      ref={dividerRef}
+      className={`resize-handle ${state.type === "dragging" ? "dragging" : ""}`}
+    >
+      ⋮⋮
+    </div>
+  );
+}
+```
+
+### useDynamicBoardRowHeightResize
+
+A custom hook to handle row height resizing. You can use this hook to create your own custom resize handles for row height adjustment:
+
+```tsx
+const { state, handleRef } = useDynamicBoardRowHeightResize({
+  rowId: "row-1",
+});
+```
+
+**Props:**
+
+- `rowId`: The unique identifier of the row being resized
+
+**Returns:**
+
+- `state`: Current resize state (`"idle" | "dragging"`)
+- `handleRef`: Reference to attach to your custom resize handle element
+
+**Example Usage:**
+
+```tsx
+function CustomRowHeightResizeHandle({ rowId }) {
+  const { state, handleRef } = useDynamicBoardRowHeightResize({
+    rowId,
+  });
+
+  return (
+    <div
+      ref={handleRef}
+      className={`row-resize-handle ${state.type === "dragging" ? "dragging" : ""}`}
+    >
+      ⋯
+    </div>
+  );
+}
+```
+
 ## Utilities
 
 ### buildDynamicBoardRowsFromCards
