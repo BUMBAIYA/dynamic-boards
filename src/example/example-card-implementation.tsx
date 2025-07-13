@@ -17,7 +17,7 @@ export function ExampleCardImplementation({
       >
         <h3 className="text-lg font-medium">{card.customCardData.title}</h3>
       </div>
-      <div className="flex-1 p-3">
+      <div className="flex-1 p-3 text-xs">
         <p>Custom card data: {JSON.stringify(card.customCardData)}</p>
         <p>
           Dimensions: {dimensions?.width} x {dimensions?.height}
