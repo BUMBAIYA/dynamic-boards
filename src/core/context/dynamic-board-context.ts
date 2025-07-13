@@ -28,14 +28,37 @@ export interface DynamicBoardDragData {
 }
 
 export interface DynamicBoardConfig {
+  /**
+   * The maximum number of cards that can be placed in a row.
+   */
   maxCardsPerRow: number;
+  /**
+   * The minimum height of a row. If cards have a height less than this, they will be automatically resized to this height.
+   * Default is `250px`.
+   */
   minHeight?: number;
+  /**
+   * The maximum height of a row. If cards have a height greater than this, they will be automatically resized to this height.
+   * Default is `600px`.
+   */
   maxHeight?: number;
+  /**
+   * Whether to disable dragging cards.
+   */
   disableDrag?: boolean;
-  disableResizeCardWidth?: boolean;
-  disableResizeRowHeight?: boolean;
+  /**
+   * Whether to disable adding cards.
+   */
   disableAddCard?: boolean;
+  /**
+   * Whether to disable card drop in between rows.
+   * TODO: Not implemented yet.
+   */
   disableCardDropInBetweenRows?: boolean;
+  /**
+   * Whether to enable layout correction.
+   * If enabled, the board will try to correct the layout when cards are loaded initially.
+   */
   enableLayoutCorrection?: boolean;
 }
 
