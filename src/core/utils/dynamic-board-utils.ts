@@ -4,9 +4,7 @@ import type {
   DynamicBoardRow,
   DynamicBoardCardId,
 } from "@/core/context/dynamic-board-context";
-
-/** Default height in pixels for cards in the dashboard */
-export const DEFAULT_CARD_HEIGHT = 360;
+import { DEFAULT_BOARD_CONFIG } from "@/core/context/dynamic-board-config-defaults";
 
 /**
  * Creates a Map of cards from an array of rows for quick lookup by card ID
@@ -42,6 +40,10 @@ export function createDynamicBoardCardsMap<CardContentGeneric>(
  */
 export function buildDynamicBoardRowsFromCards<Content>(
   cards: DynamicBoardCard<Content>[],
+  options: {
+    minHeight: number;
+    maxHeight: number;
+  } = DEFAULT_BOARD_CONFIG,
 ): DynamicBoardRow<Content>[] {
   // Group cards by row
   const rowMap = new Map<number, DynamicBoardCard<Content>[]>();
@@ -81,11 +83,11 @@ export function buildDynamicBoardRowsFromCards<Content>(
             }))
           : sortedCards;
 
-      // Get max height in the row or use default DEFAULT_CARD_HEIGHT
+      // Get max height in the row or use default minHeight as height is optional
       const maxHeight = Math.max(
-        DEFAULT_CARD_HEIGHT,
+        options.minHeight,
         ...normalizedCards.map(
-          (card) => card.layoutJson.height || DEFAULT_CARD_HEIGHT,
+          (card) => card.layoutJson.height || options.minHeight,
         ),
       );
 

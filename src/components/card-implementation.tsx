@@ -9,10 +9,10 @@ export function CardImplementation({
   dragHandleRef,
 }: CardImplementationProps) {
   return (
-    <div className="flex h-full flex-1 flex-col rounded-lg border border-gray-200 bg-white">
+    <div className="flex h-full flex-1 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
       <div
         ref={dragHandleRef}
-        className="min-h-10 cursor-grab border-b border-gray-200 p-3 active:cursor-grabbing"
+        className="min-h-10 cursor-grab border-b border-gray-200 p-3 hover:bg-gray-50 active:cursor-grabbing"
       >
         <h3 className="text-lg font-medium">{card.title}</h3>
       </div>
