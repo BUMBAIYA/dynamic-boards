@@ -4,7 +4,7 @@ import type { MockCardContent } from "@/types";
 export type CardImplementationProps =
   DynamicBoardCardChildrenProps<MockCardContent>;
 
-export function CardImplementation({
+export function ExampleCardImplementation({
   card,
   dragHandleRef,
 }: CardImplementationProps) {

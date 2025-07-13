@@ -1,8 +1,8 @@
 import { DynamicBoardProvider } from "@/core/context/dynamic-board-provider";
-import { DynamicBoard } from "@/components/dynamic-board";
+import { ExampleBoard } from "@/example/example-board";
 import { MOCK_CARD_DATA } from "@/data/mockCardData";
 
-export function DynamicBoardWrapper() {
+export function ExampleBoardWrapper() {
   return (
     <DynamicBoardProvider
       initialCards={MOCK_CARD_DATA}
@@ -16,7 +16,7 @@ export function DynamicBoardWrapper() {
         <div className="sticky top-0 z-50 flex min-h-10 items-center border-b border-gray-200 bg-white px-4">
           <h1 className="font-medium">Dynamic Boards</h1>
         </div>
-        <DynamicBoard />
+        <ExampleBoard />
       </div>
     </DynamicBoardProvider>
   );

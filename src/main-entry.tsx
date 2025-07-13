@@ -1,5 +1,5 @@
-import { DynamicBoardWrapper } from "@/components/dynamic-board-wrapper";
+import { ExampleBoardWrapper } from "@/example/example-board-wrapper";
 
 export function MainEntry() {
-  return <DynamicBoardWrapper />;
+  return <ExampleBoardWrapper />;
 }
