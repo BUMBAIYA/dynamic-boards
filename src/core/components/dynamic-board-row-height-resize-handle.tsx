@@ -1,24 +1,7 @@
-import { useEffect, useRef, useState, type JSX } from "react";
+import { type JSX } from "react";
 
-import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import { disableNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview";
-import { preventUnhandled } from "@atlaskit/pragmatic-drag-and-drop/prevent-unhandled";
-
-import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
+import { useDynamicBoardRowHeightResize } from "@/core/hooks/useDynamicBoardRowHeightResize";
 import type { DynamicBoardRowId } from "@/core/context/dynamic-board-context";
-
-/**
- * Represents the state of the row resize handle component.
- */
-type DynamicBoardRowHeightResizeHandleState = {
-  type: "idle" | "dragging";
-};
-
-/**
- * Props for the DynamicBoardRowHeightResizeHandle component.
- * @interface DynamicBoardRowHeightResizeHandleProps
- * @property {DynamicBoardRowId} rowId - The unique identifier of the row being resized
- */
 
 export interface DynamicBoardRowHeightResizeHandleProps {
   rowId: DynamicBoardRowId;
@@ -41,43 +24,7 @@ export interface DynamicBoardRowHeightResizeHandleProps {
 export function DynamicBoardRowHeightResizeHandle({
   rowId,
 }: DynamicBoardRowHeightResizeHandleProps): JSX.Element {
-  const { handleRowResizeStart, handleRowResizeMove, handleRowResizeEnd } =
-    useDynamicBoard();
-  const [state, setState] = useState<DynamicBoardRowHeightResizeHandleState>({
-    type: "idle",
-  });
-  const handleRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handle = handleRef.current;
-    if (!handle) return;
-
-    return draggable({
-      element: handle,
-      getInitialData: () => ({
-        type: "row-resize",
-        rowId: rowId,
-      }),
-      onGenerateDragPreview: ({ nativeSetDragImage }) => {
-        disableNativeDragPreview({ nativeSetDragImage });
-        preventUnhandled.start();
-      },
-      onDragStart: ({ location }) => {
-        setState({ type: "dragging" });
-        const { clientY, clientX } = location.current.input;
-        handleRowResizeStart(rowId, { clientY, clientX });
-      },
-      onDrag: ({ location }) => {
-        const { clientY, clientX } = location.current.input;
-        handleRowResizeMove({ clientY, clientX });
-      },
-      onDrop: () => {
-        preventUnhandled.stop();
-        setState({ type: "idle" });
-        handleRowResizeEnd();
-      },
-    });
-  }, [rowId, handleRowResizeStart, handleRowResizeMove, handleRowResizeEnd]);
+  const { state, handleRef } = useDynamicBoardRowHeightResize({ rowId });
 
   return (
     <div
