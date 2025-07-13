@@ -27,30 +27,9 @@ import type {
   DynamicBoardCardId,
 } from "@/core/context/dynamic-board-context";
 import { createDynamicBoardContext } from "@/core/context/dynamic-board-context";
+import { DEFAULT_BOARD_CONFIG } from "@/core/context/dynamic-board-config-defaults";
 
 export const DynamicBoardContext = createDynamicBoardContext<unknown>();
-
-/**
- * Default configuration for the dashboard layout.
- * These values are used when no boardConfig prop is provided.
- *
- * TODO: Implement disableDrag, disableResizeCardWidth, disableResizeRowHeight, disableAddCard and disableCardDropInBetweenRows in the provider for now we can use them conditionally in components
- *
- * @property {number} maxCardsPerRow - Maximum number of cards allowed in a single row
- * @property {number} minHeight - Minimum height (in pixels) for cards and rows
- * @property {number} maxHeight - Maximum height (in pixels) for cards and rows
- */
-const DEFAULT_BOARD_CONFIG = {
-  maxCardsPerRow: 3,
-  minHeight: 250,
-  maxHeight: 600,
-  disableDrag: false,
-  disableResizeCardWidth: false,
-  disableResizeRowHeight: false,
-  disableAddCard: false,
-  disableCardDropInBetweenRows: true,
-  enableLayoutCorrection: true,
-};
 
 /**
  * Props for the PragmaticDndDashboardProvider component.
@@ -91,6 +70,9 @@ export interface DynamicBoardProviderProps<Content = unknown> {
  * - Row resizing with height constraints
  * - Automatic layout calculations and adjustments
  * - Layout change notifications
+ *
+ * @AmitChauhan
+ * TODO: Handle card drop between rows, Implement boardConfig in the provider
  *
  * @template Content - The type of content stored in each card (extends the base card type)
  *
@@ -291,10 +273,13 @@ export function DynamicBoardProvider<Content = unknown>({
   const loadBoardCards: DynamicBoardContextType<Content>["loadBoardCards"] =
     useCallback(
       (cards) => {
-        const newRows = buildDynamicBoardRowsFromCards(cards);
+        const newRows = buildDynamicBoardRowsFromCards(cards, {
+          minHeight: _finalBoardConfig.minHeight,
+          maxHeight: _finalBoardConfig.maxHeight,
+        });
         updateRows(newRows);
       },
-      [updateRows],
+      [updateRows, _finalBoardConfig.minHeight, _finalBoardConfig.maxHeight],
     );
 
   /**
@@ -679,6 +664,7 @@ export function DynamicBoardProvider<Content = unknown>({
           const { rect } = closestRow;
           const isBetweenRows = mouseY < rect.top || mouseY > rect.bottom;
 
+          // @AmitChauhan
           // TODO: Handle card drop between rows
           // Handle card drop between rows
           if (isBetweenRows) {
@@ -941,11 +927,11 @@ export function DynamicBoardProvider<Content = unknown>({
    * Stores initial dimensions for the row resize.
    *
    * @param rowId - ID of the row being resized
-   * @param e - Mouse event containing position information
+   * @param mouseEvent - Mouse event containing position information
    */
   const handleRowResizeStart: DynamicBoardContextType<Content>["handleRowResizeStart"] =
     useCallback(
-      (rowId, e) => {
+      (rowId, mouseEvent) => {
         const row = rows.find((r) => r.id === rowId);
         if (!row) return;
 
@@ -956,16 +942,22 @@ export function DynamicBoardProvider<Content = unknown>({
 
         setRowResizing({
           rowId,
-          startY: e.clientY,
+          startY: mouseEvent.clientY,
           startHeight: rowHeight,
         });
       },
       [rows],
     );
 
+  /**
+   * Handles the movement of a row during resize.
+   * Updates the height of the row based on the mouse movement.
+   *
+   * @param pointerEvent - Pointer event containing position information
+   */
   const handleRowResizeMove: DynamicBoardContextType<Content>["handleRowResizeMove"] =
     useCallback(
-      (pointer) => {
+      (pointerEvent) => {
         if (!rowResizing) return;
 
         // Use local state update without triggering callbacks
@@ -973,7 +965,7 @@ export function DynamicBoardProvider<Content = unknown>({
           const newRows = prevRows.map((row) => {
             if (row.id !== rowResizing.rowId) return row;
 
-            const deltaY = pointer.clientY - rowResizing.startY;
+            const deltaY = pointerEvent.clientY - rowResizing.startY;
             const newHeight = Math.min(
               _finalBoardConfig.maxHeight,
               Math.max(
@@ -1005,6 +997,11 @@ export function DynamicBoardProvider<Content = unknown>({
       [rowResizing, _finalBoardConfig.minHeight, _finalBoardConfig.maxHeight],
     );
 
+  /**
+   * Handles the end of a row resize operation.
+   * Triggers a callback with updated row and cards.
+   *
+   */
   const handleRowResizeEnd: DynamicBoardContextType<Content>["handleRowResizeEnd"] =
     useCallback(() => {
       if (rowResizing) {
@@ -1094,7 +1091,10 @@ export function DynamicBoardProvider<Content = unknown>({
   // Load initial data and perform layout correction if enabled
   useEffect(() => {
     if (initialCards) {
-      const initialRows = buildDynamicBoardRowsFromCards(initialCards);
+      const initialRows = buildDynamicBoardRowsFromCards(initialCards, {
+        minHeight: _finalBoardConfig.minHeight,
+        maxHeight: _finalBoardConfig.maxHeight,
+      });
       const initialCardsMap = createDynamicBoardCardsMap(initialRows);
 
       setRows(initialRows);
@@ -1115,7 +1115,13 @@ export function DynamicBoardProvider<Content = unknown>({
         }
       }
     }
-  }, [initialCards, _finalBoardConfig.enableLayoutCorrection, onLayoutChange]);
+  }, [
+    initialCards,
+    _finalBoardConfig.enableLayoutCorrection,
+    _finalBoardConfig.minHeight,
+    _finalBoardConfig.maxHeight,
+    onLayoutChange,
+  ]);
 
   const value: DynamicBoardContextType<Content> = {
     boardConfig: _finalBoardConfig,
