@@ -131,7 +131,7 @@ export function DynamicBoardCard<CardContent>({
       resizeObserver.disconnect();
       window.removeEventListener("resize", updateWidth);
     };
-  }, [card.layoutJson.widthPercentage]); // Only re-run when card widthPercentage changes
+  }, []);
 
   useEffect(() => {
     const element = ref.current;
