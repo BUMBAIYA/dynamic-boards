@@ -727,7 +727,7 @@ export function DynamicBoardProvider<Content = unknown>({
             const [targetCardRecord, targetRowRecord] =
               location.current.dropTargets;
             const targetRowId = targetRowRecord.data.id as string;
-            const targetCardId = parseInt(targetCardRecord.data.id as string);
+            const targetCardId = targetCardRecord.data.id as string;
             const targetRow = findRow(targetRowId);
             if (!targetRow) return;
 
