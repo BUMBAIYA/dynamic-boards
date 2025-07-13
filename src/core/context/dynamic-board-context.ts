@@ -44,10 +44,12 @@ export interface DynamicBoardConfig {
   maxHeight?: number;
   /**
    * Whether to disable dragging cards.
+   * If enabled, the board will not allow users to drag cards.
    */
   disableDrag?: boolean;
   /**
    * Whether to disable adding cards.
+   * If enabled, the board will not allow users to add cards.
    */
   disableAddCard?: boolean;
   /**
@@ -55,6 +57,16 @@ export interface DynamicBoardConfig {
    * TODO: Not implemented yet.
    */
   disableCardDropInBetweenRows?: boolean;
+  /**
+   * Whether to disable resizing card width.
+   * If enabled, the board will not allow users to resize cards.
+   */
+  disableResizeCardWidth?: boolean;
+  /**
+   * Whether to disable resizing row height.
+   * If enabled, the board will not allow users to resize rows.
+   */
+  disableResizeRowHeight?: boolean;
   /**
    * Whether to enable layout correction.
    * If enabled, the board will try to correct the layout when cards are loaded initially.
