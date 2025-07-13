@@ -1,4 +1,6 @@
 export type MockCardContent = {
-  title: string;
-  description: string;
+  customCardData: {
+    title: string;
+    description: string;
+  };
 };

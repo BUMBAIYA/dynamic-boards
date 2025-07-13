@@ -7,6 +7,7 @@ export type CardImplementationProps =
 export function ExampleCardImplementation({
   card,
   dragHandleRef,
+  dimensions,
 }: CardImplementationProps) {
   return (
     <div className="flex h-full flex-1 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
@@ -14,10 +15,13 @@ export function ExampleCardImplementation({
         ref={dragHandleRef}
         className="min-h-10 cursor-grab border-b border-gray-200 p-3 hover:bg-gray-50 active:cursor-grabbing"
       >
-        <h3 className="text-lg font-medium">{card.title}</h3>
+        <h3 className="text-lg font-medium">{card.customCardData.title}</h3>
       </div>
       <div className="flex-1 p-3">
-        <p>{card.description}</p>
+        <p>Custom card data: {JSON.stringify(card.customCardData)}</p>
+        <p>
+          Dimensions: {dimensions?.width} x {dimensions?.height}
+        </p>
       </div>
     </div>
   );

@@ -46,6 +46,7 @@ export function ExampleBoard() {
                             />
                           )}
                         </DynamicBoardCard>
+                        {/* User need to add this handle if they want to resize card width */}
                         {cardIdx !== row.cards.length - 1 &&
                           !boardConfig.disableResizeCardWidth && (
                             <DynamicBoardCardResizeHandle
@@ -58,6 +59,7 @@ export function ExampleBoard() {
                     ))}
                   </div>
                 </div>
+                {/* User need to add this handle if they want to resize row height */}
                 {!boardConfig.disableResizeRowHeight && (
                   <DynamicBoardRowHeightResizeHandle rowId={row.id} />
                 )}
