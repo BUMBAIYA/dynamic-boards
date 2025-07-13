@@ -1,6 +1,6 @@
 import { DynamicBoardProvider } from "@/core/context/dynamic-board-provider";
 import { ExampleBoard } from "@/example/example-board";
-import { MOCK_CARD_DATA } from "@/data/mockCardData";
+import { MOCK_CARD_DATA } from "@/example/data/mockCardData";
 
 export function ExampleBoardWrapper() {
   return (
