@@ -1,33 +1,7 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type HTMLAttributes,
-  type JSX,
-} from "react";
+import { type HTMLAttributes, type JSX } from "react";
 
-import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import { disableNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview";
-import { preventUnhandled } from "@atlaskit/pragmatic-drag-and-drop/prevent-unhandled";
-
-import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
+import { useDynamicBoardCardResize } from "@/core/hooks/useDynamicBoardCardResize";
 import type { DynamicBoardRowId } from "@/core/context/dynamic-board-context";
-
-/**
- * Represents the state of the resize handle component.
- */
-type DynamicBoardCardResizeHandleState = {
-  type: "idle" | "dragging";
-};
-
-/**
- * Props for the DynamicBoardCardResizeHandle component.
- * @interface DynamicBoardCardResizeHandleProps
- * @extends {Omit<HTMLAttributes<HTMLDivElement>, 'ref' | 'style'>}
- * @property {string} rowId - The unique identifier of the row containing the card
- * @property {number} cardIndex - The index of the card in the row
- * @property {number} height - The height of the resize handle in pixels
- */
 
 export interface DynamicBoardCardResizeHandleProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "ref" | "style"> {
@@ -60,41 +34,10 @@ export function DynamicBoardCardResizeHandle({
   height,
   ...props
 }: DynamicBoardCardResizeHandleProps): JSX.Element {
-  const { handleResizeStart, handleResizeMove, handleResizeEnd } =
-    useDynamicBoard();
-  const [state, setState] = useState<DynamicBoardCardResizeHandleState>({
-    type: "idle",
+  const { state, dividerRef } = useDynamicBoardCardResize({
+    rowId,
+    cardIndex,
   });
-  const dividerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const divider = dividerRef.current;
-    if (!divider) return;
-
-    return draggable({
-      element: divider,
-      onGenerateDragPreview: ({ nativeSetDragImage }) => {
-        // Disable native drag preview since we'll handle the visual feedback ourselves
-        disableNativeDragPreview({ nativeSetDragImage });
-        // Prevent unhandled drop animation
-        preventUnhandled.start();
-      },
-      onDragStart: ({ location }) => {
-        setState({ type: "dragging" });
-        const { clientX, clientY } = location.current.input;
-        handleResizeStart(rowId, cardIndex, { clientX, clientY });
-      },
-      onDrag: ({ location }) => {
-        const { clientX, clientY } = location.current.input;
-        handleResizeMove({ clientX, clientY });
-      },
-      onDrop: () => {
-        preventUnhandled.stop();
-        setState({ type: "idle" });
-        handleResizeEnd();
-      },
-    });
-  }, [rowId, cardIndex, handleResizeStart, handleResizeMove, handleResizeEnd]);
 
   return (
     <div
