@@ -1,5 +1,5 @@
 import type { DynamicBoardCardChildrenProps } from "@/core/components/dynamic-board-card";
-import type { MockCardContent } from "@/types";
+import type { MockCardContent } from "@/example/types";
 
 export type CardImplementationProps =
   DynamicBoardCardChildrenProps<MockCardContent>;

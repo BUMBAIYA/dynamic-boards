@@ -9,7 +9,7 @@ import {
 } from "@/core/components";
 import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
 import { ExampleCardImplementation } from "@/example/example-card-implementation";
-import type { MockCardContent } from "@/types";
+import type { MockCardContent } from "@/example/types";
 
 export function ExampleBoard() {
   const { rows, boardConfig } = useDynamicBoard<MockCardContent>();

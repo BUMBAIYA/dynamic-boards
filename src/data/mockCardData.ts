@@ -1,6 +1,6 @@
 import { generateRandomId } from "@/core/utils/generateRandomId";
 import type { DynamicBoardCard } from "@/core/context/dynamic-board-context";
-import type { MockCardContent } from "@/types";
+import type { MockCardContent } from "@/example/types";
 
 export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
   {
