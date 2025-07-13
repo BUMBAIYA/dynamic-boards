@@ -1,6 +1,6 @@
-import type { DynamicBoardCard } from "@/core/context/dynamic-board-context";
 import { generateRandomId } from "@/core/utils/generateRandomId";
-import type { MockCardContent } from "@/types";
+import type { DynamicBoardCard } from "@/core/context/dynamic-board-context";
+import type { MockCardContent } from "@/example/types";
 
 export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
   {
@@ -11,8 +11,10 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       widthPercentage: 50,
       height: 300,
     },
-    title: "Card 1",
-    description: "Description 1",
+    customCardData: {
+      title: "Card 1",
+      description: "Description 1",
+    },
   },
   {
     id: generateRandomId(),
@@ -22,8 +24,10 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       widthPercentage: 50,
       height: 300,
     },
-    title: "Card 2",
-    description: "Description 2",
+    customCardData: {
+      title: "Card 2",
+      description: "Description 2",
+    },
   },
   {
     id: generateRandomId(),
@@ -33,8 +37,10 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       widthPercentage: 30,
       height: 300,
     },
-    title: "Card 3",
-    description: "Description 3",
+    customCardData: {
+      title: "Card 3",
+      description: "Description 3",
+    },
   },
   {
     id: generateRandomId(),
@@ -44,8 +50,10 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       widthPercentage: 30,
       height: 300,
     },
-    title: "Card 4",
-    description: "Description 4",
+    customCardData: {
+      title: "Card 4",
+      description: "Description 4",
+    },
   },
   {
     id: generateRandomId(),
@@ -55,8 +63,10 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       widthPercentage: 40,
       height: 300,
     },
-    title: "Card 5",
-    description: "Description 5",
+    customCardData: {
+      title: "Card 5",
+      description: "Description 5",
+    },
   },
   {
     id: generateRandomId(),
@@ -66,8 +76,10 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       widthPercentage: 50,
       height: 300,
     },
-    title: "Card 6",
-    description: "Description 6",
+    customCardData: {
+      title: "Card 6",
+      description: "Description 6",
+    },
   },
   {
     id: generateRandomId(),
@@ -77,7 +89,9 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       widthPercentage: 50,
       height: 300,
     },
-    title: "Card 7",
-    description: "Description 7",
+    customCardData: {
+      title: "Card 7",
+      description: "Description 7",
+    },
   },
 ];

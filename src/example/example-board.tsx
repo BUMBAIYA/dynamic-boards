@@ -8,10 +8,10 @@ import {
   DynamicBoardRowHeightResizeHandle,
 } from "@/core/components";
 import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
-import { CardImplementation } from "@/components/card-implementation";
-import type { MockCardContent } from "@/types";
+import { ExampleCardImplementation } from "@/example/example-card-implementation";
+import type { MockCardContent } from "@/example/types";
 
-export function DynamicBoard() {
+export function ExampleBoard() {
   const { rows, boardConfig } = useDynamicBoard<MockCardContent>();
 
   return (
@@ -40,9 +40,13 @@ export function DynamicBoard() {
                           paddingY={8}
                         >
                           {(cardProps) => (
-                            <CardImplementation key={card.id} {...cardProps} />
+                            <ExampleCardImplementation
+                              key={card.id}
+                              {...cardProps}
+                            />
                           )}
                         </DynamicBoardCard>
+                        {/* User need to add this handle if they want to resize card width */}
                         {cardIdx !== row.cards.length - 1 &&
                           !boardConfig.disableResizeCardWidth && (
                             <DynamicBoardCardResizeHandle
@@ -55,6 +59,7 @@ export function DynamicBoard() {
                     ))}
                   </div>
                 </div>
+                {/* User need to add this handle if they want to resize row height */}
                 {!boardConfig.disableResizeRowHeight && (
                   <DynamicBoardRowHeightResizeHandle rowId={row.id} />
                 )}
