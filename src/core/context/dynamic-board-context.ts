@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
-export type DynamicBoardCardId = number | string;
-export type DynamicBoardRowId = number | string;
+export type DynamicBoardCardId = string;
+export type DynamicBoardRowId = string;
 
 export interface DynamicBoardCardLayout {
   row: number;
