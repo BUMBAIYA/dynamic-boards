@@ -9,7 +9,7 @@ export function CardImplementation({
   dragHandleRef,
 }: CardImplementationProps) {
   return (
-    <div className="flex h-full min-h-60 flex-1 flex-col rounded-lg border border-gray-200 bg-white">
+    <div className="flex h-full flex-1 flex-col rounded-lg border border-gray-200 bg-white">
       <div
         ref={dragHandleRef}
         className="min-h-10 cursor-grab border-b border-gray-200 p-3 active:cursor-grabbing"

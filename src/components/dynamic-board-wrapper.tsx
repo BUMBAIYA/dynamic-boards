@@ -12,8 +12,8 @@ export function DynamicBoardWrapper() {
         disableCardDropInBetweenRows: true,
       }}
     >
-      <div className="flex min-h-screen w-full flex-col">
-        <div className="flex min-h-10 items-center border-b border-gray-200 px-4">
+      <div className="flex min-h-screen w-full flex-col bg-gray-50">
+        <div className="sticky top-0 z-50 flex min-h-10 items-center border-b border-gray-200 bg-white px-4">
           <h1 className="font-medium">Dynamic Boards</h1>
         </div>
         <DynamicBoard />

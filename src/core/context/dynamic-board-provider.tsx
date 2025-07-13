@@ -42,7 +42,7 @@ export const DynamicBoardContext = createDynamicBoardContext<unknown>();
  */
 const DEFAULT_BOARD_CONFIG = {
   maxCardsPerRow: 3,
-  minHeight: 100,
+  minHeight: 250,
   maxHeight: 600,
   disableDrag: false,
   disableResizeCardWidth: false,
