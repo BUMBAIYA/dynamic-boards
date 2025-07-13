@@ -183,20 +183,7 @@ export function DynamicBoardCard<CardContent>({
             args.source.data.id !== card.id
           ) {
             const edge = extractClosestEdge(args.self.data);
-            if (edge === "right") {
-              const rowElement = document.getElementById(`row-${rowId}`);
-              if (rowElement) {
-                const cards = Array.from(rowElement.children).filter((child) =>
-                  child.classList.contains("card-container"),
-                );
-                const isLastCard = cards[cards.length - 1] === element;
-                if (!isLastCard) {
-                  setClosestEdge(edge);
-                }
-              }
-            } else {
-              setClosestEdge(edge);
-            }
+            setClosestEdge(edge);
           }
         },
         onDrag: (args) => {
@@ -205,20 +192,7 @@ export function DynamicBoardCard<CardContent>({
             args.source.data.id !== card.id
           ) {
             const edge = extractClosestEdge(args.self.data);
-            if (edge === "right") {
-              const rowElement = document.getElementById(`row-${rowId}`);
-              if (rowElement) {
-                const cards = Array.from(rowElement.children).filter((child) =>
-                  child.classList.contains("card-container"),
-                );
-                const isLastCard = cards[cards.length - 1] === element;
-                if (!isLastCard) {
-                  setClosestEdge(edge);
-                }
-              }
-            } else {
-              setClosestEdge(edge);
-            }
+            setClosestEdge(edge);
           }
         },
         onDragLeave: () => {
@@ -232,7 +206,7 @@ export function DynamicBoardCard<CardContent>({
   }, [card.id, rowId]);
 
   if (!children) {
-    throw new Error("CardComponent must have a children");
+    throw new Error("DynamicBoardCard component must have a children");
   }
 
   return (
