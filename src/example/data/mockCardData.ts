@@ -9,7 +9,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       row: 0,
       col: 0,
       widthPercentage: 50,
-      height: 520,
+      height: 460,
     },
     customCardData: {
       title: "BUMBIAYA",
@@ -23,7 +23,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       row: 0,
       col: 1,
       widthPercentage: 50,
-      height: 520,
+      height: 460,
     },
     customCardData: {
       title: "Repositories",
