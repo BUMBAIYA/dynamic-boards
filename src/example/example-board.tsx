@@ -22,7 +22,7 @@ export function ExampleBoard() {
 
   return (
     <DynamicBoardWindowAutoScroll maxScrollSpeed="fast">
-      <div className="flex flex-1 flex-col p-2">
+      <div className="flex flex-1 flex-col p-2 pb-16">
         {rows.map((row, rowIdx) => (
           <DynamicBoardRow key={row.id} row={row}>
             {({ rowId, row, rowHeight, rowRef, isDraggingOver }) => (
@@ -51,6 +51,7 @@ export function ExampleBoard() {
                             <ExampleCardImplementation
                               key={card.id}
                               {...cardProps}
+                              githubUsername={"bumbaiya"}
                             />
                           )}
                         </DynamicBoardCard>

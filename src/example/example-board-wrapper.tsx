@@ -12,6 +12,7 @@ export function ExampleBoardWrapper() {
         maxCardsPerRow: 3,
         enableLayoutCorrection: true,
         disableCardDropInBetweenRows: true,
+        maxHeight: 700,
       }}
     >
       <div className="flex min-h-screen w-full flex-col">

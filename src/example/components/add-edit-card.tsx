@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   GithubIcon,
-  HashIcon,
+  TrendingUpIcon,
   XIcon,
   Users2Icon,
   StarIcon,
@@ -47,7 +47,7 @@ const GITHUB_INFO_OPTIONS: {
   {
     label: "Metrics",
     value: "metrics",
-    icon: HashIcon,
+    icon: TrendingUpIcon,
   },
   {
     label: "Followers",

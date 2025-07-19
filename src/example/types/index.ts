@@ -7,10 +7,17 @@
  * This is just an example. User can use this as a reference.
  */
 
+export type MockCardContentCustomDataGithubInfo =
+  | "profile"
+  | "repos"
+  | "metrics"
+  | "followers"
+  | "stargazers";
+
 export type MockCardContentCustomData = {
   title: string;
   description: string;
-  githubInfo: "profile" | "repos" | "metrics" | "followers" | "stargazers";
+  githubInfo: MockCardContentCustomDataGithubInfo;
 };
 
 export type MockCardContent = {
