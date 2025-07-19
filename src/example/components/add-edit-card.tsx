@@ -5,7 +5,6 @@ import {
   TrendingUpIcon,
   XIcon,
   Users2Icon,
-  StarIcon,
   AlbumIcon,
   type LucideIcon,
 } from "lucide-react";
@@ -53,11 +52,6 @@ const GITHUB_INFO_OPTIONS: {
     label: "Followers",
     value: "followers",
     icon: Users2Icon,
-  },
-  {
-    label: "Stargazers",
-    value: "stargazers",
-    icon: StarIcon,
   },
 ];
 

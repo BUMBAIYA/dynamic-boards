@@ -54,19 +54,6 @@ Shows a user's followers with:
 
 - `username: string` - GitHub username to fetch followers for
 
-### 5. GitHubStargazersCard
-
-Displays stargazers for a specific repository:
-
-- Stargazer avatars and names
-- Links to stargazer profiles
-- Total stargazer count
-
-**Props:**
-
-- `repoOwner: string` - Repository owner username
-- `repoName: string` - Repository name
-
 ## GitHub API Service
 
 The `GitHubApiService` class provides methods to fetch data from the GitHub API:
@@ -84,7 +71,7 @@ The `GitHubApiService` class provides methods to fetch data from the GitHub API:
 import { GitHubProfileCard } from "@/example/components/github-cards";
 
 function MyComponent() {
-  return <GitHubProfileCard username="bumbaiya" />;
+  return <GitHubProfileCard username="BUMBAIYA" />;
 }
 ```
 

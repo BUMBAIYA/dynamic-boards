@@ -2,12 +2,11 @@ import {
   GithubIcon,
   HashIcon,
   Users2Icon,
-  StarIcon,
   AlbumIcon,
-  type LucideIcon,
   TrendingUpIcon,
+  type LucideIcon,
 } from "lucide-react";
-import type { MockCardContentCustomDataGithubInfo } from "./types";
+import type { MockCardContentCustomDataGithubInfo } from "@/example/types";
 
 export const GITHUB_CARD_TYPE_TO_ICON_MAPPING: Record<
   MockCardContentCustomDataGithubInfo | "unknown",
@@ -31,10 +30,6 @@ export const GITHUB_CARD_TYPE_TO_ICON_MAPPING: Record<
   followers: {
     icon: Users2Icon,
     color: "text-red-600",
-  },
-  stargazers: {
-    icon: StarIcon,
-    color: "text-purple-600",
   },
   unknown: {
     icon: HashIcon,

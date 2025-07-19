@@ -14,7 +14,8 @@ import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
 // ------------------- Example Board Implementation -------------------
 
 import { ExampleCardImplementation } from "@/example/example-card-implementation";
-import { AddNewCard } from "@/example/components/add-new-card";
+import { AddNewCardInRow } from "@/example/components/add-new-card-in-row";
+import { AddNewCardInNewRow } from "@/example/components/add-new-card-in-new-row";
 import { GITHUB_USERNAME } from "@/example/data/githubUsername";
 import type { MockCardContent } from "@/example/types";
 
@@ -72,7 +73,7 @@ export function ExampleBoard() {
                   {/* User need to implement their own add new card button here. */}
                   {row.cards.length < boardConfig.maxCardsPerRow &&
                     !boardConfig.disableAddCard && (
-                      <AddNewCard
+                      <AddNewCardInRow
                         rowId={row.id}
                         row={rowIdx}
                         col={row.cards.length}
@@ -89,6 +90,11 @@ export function ExampleBoard() {
             )}
           </DynamicBoardRow>
         ))}
+        {!boardConfig.disableAddCard && (
+          <div className="mt-2 w-full px-2">
+            <AddNewCardInNewRow row={rows.length} rowHeight={400} />
+          </div>
+        )}
       </div>
     </DynamicBoardWindowAutoScroll>
   );
