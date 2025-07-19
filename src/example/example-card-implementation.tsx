@@ -9,7 +9,6 @@ import {
   GitHubReposCard,
   GitHubMetricsCard,
   GitHubFollowersCard,
-  GitHubStargazersCard,
 } from "@/example/components/github-cards";
 import { GITHUB_CARD_TYPE_TO_ICON_MAPPING } from "./card-type-to-icon-mapping";
 
@@ -84,11 +83,6 @@ export function ExampleCardImplementation({
           <GitHubMetricsCard username={githubUsername} />
         ) : card.customCardData.githubInfo === "followers" ? (
           <GitHubFollowersCard username={githubUsername} />
-        ) : card.customCardData.githubInfo === "stargazers" ? (
-          <GitHubStargazersCard
-            repoOwner={githubUsername.split("/")[0]}
-            repoName={githubUsername.split("/")[1]}
-          />
         ) : (
           <div className="flex h-full items-center justify-center p-3">
             <div className="text-sm text-gray-500">Unknown card type</div>

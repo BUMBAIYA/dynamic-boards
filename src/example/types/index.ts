@@ -11,8 +11,7 @@ export type MockCardContentCustomDataGithubInfo =
   | "profile"
   | "repos"
   | "metrics"
-  | "followers"
-  | "stargazers";
+  | "followers";
 
 export type MockCardContentCustomData = {
   title: string;

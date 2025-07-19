@@ -84,7 +84,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Random Card 2",
       description: "This is a random card",
-      githubInfo: "profile",
+      githubInfo: "repos",
     },
   },
 ];
