@@ -2,7 +2,7 @@ import { PlusIcon } from "lucide-react";
 
 import { useExampleBoard } from "@/example/context/useExampleBoard";
 
-export interface AddNewCardProps {
+export interface AddNewCardInRowProps {
   rowId: string;
   row: number;
   col: number;
@@ -10,13 +10,13 @@ export interface AddNewCardProps {
   rowHeight: number;
 }
 
-export function AddNewCard({
+export function AddNewCardInRow({
   rowId,
   row,
   col,
   widthPercentage,
   rowHeight,
-}: AddNewCardProps) {
+}: AddNewCardInRowProps) {
   const { setShowOpenEditModal } = useExampleBoard();
 
   return (
