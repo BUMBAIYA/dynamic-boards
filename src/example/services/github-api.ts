@@ -29,6 +29,7 @@ export interface GitHubRepo {
   language: string;
   updated_at: string;
   private: boolean;
+  homepage: string | null;
 }
 
 export interface GitHubMetrics {
