@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 
+// ------------------- Core Components -------------------
+
 import {
   DynamicBoardWindowAutoScroll,
   DynamicBoardRow,
@@ -8,7 +10,11 @@ import {
   DynamicBoardRowHeightResizeHandle,
 } from "@/core/components";
 import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
+
+// ------------------- Example Board Implementation -------------------
+
 import { ExampleCardImplementation } from "@/example/example-card-implementation";
+import { AddNewCard } from "@/example/components/add-new-card";
 import type { MockCardContent } from "@/example/types";
 
 export function ExampleBoard() {
@@ -17,7 +23,7 @@ export function ExampleBoard() {
   return (
     <DynamicBoardWindowAutoScroll maxScrollSpeed="fast">
       <div className="flex flex-1 flex-col p-2">
-        {rows.map((row) => (
+        {rows.map((row, rowIdx) => (
           <DynamicBoardRow key={row.id} row={row}>
             {({ rowId, row, rowHeight, rowRef, isDraggingOver }) => (
               <div className="flex w-full flex-col">
@@ -40,6 +46,8 @@ export function ExampleBoard() {
                           paddingY={8}
                         >
                           {(cardProps) => (
+                            // User need to implement the card implementation here.
+                            // This is just an example.
                             <ExampleCardImplementation
                               key={card.id}
                               {...cardProps}
@@ -58,8 +66,20 @@ export function ExampleBoard() {
                       </Fragment>
                     ))}
                   </div>
+                  {/* Follow the board config to disable add new card */}
+                  {/* User need to implement their own add new card button here. */}
+                  {row.cards.length < boardConfig.maxCardsPerRow &&
+                    !boardConfig.disableAddCard && (
+                      <AddNewCard
+                        rowId={row.id}
+                        row={rowIdx}
+                        col={row.cards.length}
+                        widthPercentage={100 / (row.cards.length + 1)}
+                        rowHeight={rowHeight}
+                      />
+                    )}
                 </div>
-                {/* User need to add this handle if they want to resize row height */}
+                {/* Follow the board config to disable resize row height */}
                 {!boardConfig.disableResizeRowHeight && (
                   <DynamicBoardRowHeightResizeHandle rowId={row.id} />
                 )}

@@ -14,6 +14,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Card 1",
       description: "Description 1",
+      githubInfo: "profile",
     },
   },
   {
@@ -27,6 +28,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Card 2",
       description: "Description 2",
+      githubInfo: "profile",
     },
   },
   {
@@ -40,6 +42,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Card 3",
       description: "Description 3",
+      githubInfo: "profile",
     },
   },
   {
@@ -53,6 +56,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Card 4",
       description: "Description 4",
+      githubInfo: "profile",
     },
   },
   {
@@ -66,6 +70,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Card 5",
       description: "Description 5",
+      githubInfo: "profile",
     },
   },
   {
@@ -79,6 +84,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Card 6",
       description: "Description 6",
+      githubInfo: "profile",
     },
   },
   {
@@ -92,6 +98,7 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     customCardData: {
       title: "Card 7",
       description: "Description 7",
+      githubInfo: "profile",
     },
   },
 ];
