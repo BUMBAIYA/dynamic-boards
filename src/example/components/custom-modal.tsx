@@ -41,20 +41,24 @@ export function CustomModal({
   return createPortal(
     <div
       ref={focusTrapElement}
-      data-modal-root
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-3"
-      onClick={(e) => {
-        if (
-          closeOnClickOutside &&
-          (e.target as HTMLElement).hasAttribute("data-modal-root")
-        ) {
-          e.stopPropagation();
-          e.preventDefault();
-          onChange(false);
-        }
-      }}
+      className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-black/40 p-3"
     >
-      {children}
+      <div
+        data-modal-root
+        className="flex w-full flex-1 items-center justify-center"
+        onClick={(e) => {
+          if (
+            closeOnClickOutside &&
+            (e.target as HTMLElement).hasAttribute("data-modal-root")
+          ) {
+            e.stopPropagation();
+            e.preventDefault();
+            onChange(false);
+          }
+        }}
+      >
+        {children}
+      </div>
     </div>,
     document.body,
   );
