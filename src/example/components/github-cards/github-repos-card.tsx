@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 
-import {
-  ExternalLinkIcon,
-  StarIcon,
-  GitForkIcon,
-  CalendarIcon,
-} from "lucide-react";
+import { StarIcon, GitForkIcon, CalendarIcon, GlobeIcon } from "lucide-react";
 
 import {
   GitHubApiService,
@@ -87,11 +82,25 @@ export function GitHubReposCard({ username }: GitHubReposCardProps) {
                     href={repo.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="truncate font-medium text-blue-600 hover:text-blue-800"
+                    className="truncate font-medium text-blue-600 underline underline-offset-2 hover:text-blue-800"
                   >
                     {repo.name}
                   </a>
-                  <ExternalLinkIcon className="h-3 w-3 flex-shrink-0" />
+                  {repo.homepage && (
+                    <a
+                      href={
+                        repo.homepage.startsWith("http")
+                          ? repo.homepage
+                          : `https://${repo.homepage}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 hover:bg-green-200"
+                    >
+                      <GlobeIcon className="h-3 w-3" />
+                      <span>Live</span>
+                    </a>
+                  )}
                 </div>
 
                 {repo.description && (
