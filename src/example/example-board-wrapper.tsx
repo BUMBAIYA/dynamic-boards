@@ -2,6 +2,7 @@ import { DynamicBoardProvider } from "@/core/context/dynamic-board-provider";
 import { ExampleBoard } from "@/example/example-board";
 import { GithubAnchor } from "@/example/components/github-anchor";
 import { MOCK_CARD_DATA } from "@/example/data/mockCardData";
+import { ExampleBoardProvider } from "@/example/context/example-board-provider";
 
 export function ExampleBoardWrapper() {
   return (
@@ -11,6 +12,7 @@ export function ExampleBoardWrapper() {
         maxCardsPerRow: 3,
         enableLayoutCorrection: true,
         disableCardDropInBetweenRows: true,
+        maxHeight: 700,
       }}
     >
       <div className="flex min-h-screen w-full flex-col">
@@ -18,7 +20,11 @@ export function ExampleBoardWrapper() {
           <h1 className="font-medium">Dynamic Boards</h1>
           <GithubAnchor />
         </div>
-        <ExampleBoard />
+        {/* This is the example board provider. */}
+        {/* User need to implement their own provider here according to their own needs/business logic. */}
+        <ExampleBoardProvider>
+          <ExampleBoard />
+        </ExampleBoardProvider>
       </div>
     </DynamicBoardProvider>
   );

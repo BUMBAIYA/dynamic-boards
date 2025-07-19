@@ -9,11 +9,12 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       row: 0,
       col: 0,
       widthPercentage: 50,
-      height: 300,
+      height: 520,
     },
     customCardData: {
-      title: "Card 1",
-      description: "Description 1",
+      title: "BUMBIAYA",
+      description: "This is my github profile",
+      githubInfo: "profile",
     },
   },
   {
@@ -22,11 +23,12 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       row: 0,
       col: 1,
       widthPercentage: 50,
-      height: 300,
+      height: 520,
     },
     customCardData: {
-      title: "Card 2",
-      description: "Description 2",
+      title: "Repositories",
+      description: "This is my github repositories",
+      githubInfo: "repos",
     },
   },
   {
@@ -34,38 +36,27 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
     layoutJson: {
       row: 1,
       col: 0,
-      widthPercentage: 30,
-      height: 300,
-    },
-    customCardData: {
-      title: "Card 3",
-      description: "Description 3",
-    },
-  },
-  {
-    id: generateRandomId(),
-    layoutJson: {
-      row: 1,
-      col: 1,
-      widthPercentage: 30,
-      height: 300,
-    },
-    customCardData: {
-      title: "Card 4",
-      description: "Description 4",
-    },
-  },
-  {
-    id: generateRandomId(),
-    layoutJson: {
-      row: 1,
-      col: 2,
       widthPercentage: 40,
-      height: 300,
+      height: 520,
     },
     customCardData: {
-      title: "Card 5",
-      description: "Description 5",
+      title: "Metrics",
+      description: "This is my github metrics",
+      githubInfo: "metrics",
+    },
+  },
+  {
+    id: generateRandomId(),
+    layoutJson: {
+      row: 1,
+      col: 1,
+      widthPercentage: 60,
+      height: 520,
+    },
+    customCardData: {
+      title: "Followers",
+      description: "This is my github followers",
+      githubInfo: "followers",
     },
   },
   {
@@ -74,11 +65,12 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       row: 2,
       col: 0,
       widthPercentage: 50,
-      height: 300,
+      height: 460,
     },
     customCardData: {
-      title: "Card 6",
-      description: "Description 6",
+      title: "Random Card 1",
+      description: "This is a random card",
+      githubInfo: "profile",
     },
   },
   {
@@ -87,11 +79,12 @@ export const MOCK_CARD_DATA: DynamicBoardCard<MockCardContent>[] = [
       row: 2,
       col: 1,
       widthPercentage: 50,
-      height: 300,
+      height: 460,
     },
     customCardData: {
-      title: "Card 7",
-      description: "Description 7",
+      title: "Random Card 2",
+      description: "This is a random card",
+      githubInfo: "profile",
     },
   },
 ];

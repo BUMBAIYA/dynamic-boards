@@ -183,7 +183,10 @@ export function DynamicBoardCard<CardContent>({
             args.source.data.id !== card.id
           ) {
             const edge = extractClosestEdge(args.self.data);
-            setClosestEdge(edge);
+            // We need to show the drop indicator edge on left side of the card so that user can drop the card to the left of the current card that's why we can safely ignore the right edge
+            if (edge === "left") {
+              setClosestEdge(edge);
+            }
           }
         },
         onDrag: (args) => {
@@ -192,7 +195,10 @@ export function DynamicBoardCard<CardContent>({
             args.source.data.id !== card.id
           ) {
             const edge = extractClosestEdge(args.self.data);
-            setClosestEdge(edge);
+            // We need to show the drop indicator edge on left side of the card so that user can drop the card to the left of the current card that's why we can safely ignore the right edge
+            if (edge === "left") {
+              setClosestEdge(edge);
+            }
           }
         },
         onDragLeave: () => {
