@@ -102,6 +102,10 @@ export function DynamicBoardCard<CardContent>({
     width: 0,
     height: 0,
   });
+  const [previewSnapshot, setPreviewSnapshot] = useState<HTMLElement | null>(
+    null,
+  );
+  const previewContainerRef = useRef<HTMLDivElement>(null);
 
   // Calculate content dimensions when container width changes
   useEffect(() => {
@@ -151,6 +155,22 @@ export function DynamicBoardCard<CardContent>({
           setState("preview");
           previewRef.current = { container: document.body, rect };
 
+          // Capture a real snapshot of the card's current visual state
+          const cardElement = ref.current;
+          if (cardElement) {
+            // Create a deep clone of the card element
+            const clone = cardElement.cloneNode(true) as HTMLElement;
+
+            // Apply preview-specific styles to the clone
+            clone.style.opacity = "1";
+            clone.style.pointerEvents = "none";
+            clone.style.position = "absolute";
+            clone.style.width = "100%";
+            clone.style.height = "100%";
+
+            setPreviewSnapshot(clone);
+          }
+
           setCustomNativeDragPreview({
             nativeSetDragImage,
             getOffset: preserveOffsetOnSource({
@@ -164,7 +184,11 @@ export function DynamicBoardCard<CardContent>({
           });
         },
         onDragStart: () => setState("dragging"),
-        onDrop: () => setState("idle"),
+        onDrop: () => {
+          setState("idle");
+          // Clean up the preview snapshot
+          setPreviewSnapshot(null);
+        },
       }),
       dropTargetForElements({
         element,
@@ -211,6 +235,24 @@ export function DynamicBoardCard<CardContent>({
     );
   }, [card.id, rowId]);
 
+  // Append the DOM snapshot to the preview container
+  useEffect(() => {
+    const container = previewContainerRef.current;
+    if (container && previewSnapshot) {
+      // Clear any existing content
+      container.innerHTML = "";
+      // Append the snapshot
+      container.appendChild(previewSnapshot);
+    }
+
+    // Cleanup preview snapshot on unmount
+    return () => {
+      if (previewSnapshot) {
+        setPreviewSnapshot(null);
+      }
+    };
+  }, [previewSnapshot]);
+
   if (!children) {
     throw new Error("DynamicBoardCard component must have a children");
   }
@@ -250,24 +292,17 @@ export function DynamicBoardCard<CardContent>({
         previewRef.current &&
         createPortal(
           <div
+            ref={previewContainerRef}
             style={{
-              // width: previewRef.current.rect.width,
-              // height: previewRef.current.rect.height,
-              width: contentDimensions.width,
-              height: contentDimensions.height,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: contentDimensions.width - paddingX * 2,
+              height: contentDimensions.height - paddingY * 2,
               pointerEvents: "none",
+              zIndex: 999999999999999,
             }}
-          >
-            {children({
-              card,
-              rowId,
-              dimensions: {
-                width: contentDimensions.width - paddingX * 2,
-                height: contentDimensions.height - paddingY * 2,
-              },
-              dragHandleRef,
-            })}
-          </div>,
+          />,
           previewRef.current.container,
         )}
     </Fragment>
