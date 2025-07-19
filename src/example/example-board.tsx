@@ -15,6 +15,7 @@ import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
 
 import { ExampleCardImplementation } from "@/example/example-card-implementation";
 import { AddNewCard } from "@/example/components/add-new-card";
+import { GITHUB_USERNAME } from "@/example/data/githubUsername";
 import type { MockCardContent } from "@/example/types";
 
 export function ExampleBoard() {
@@ -51,7 +52,7 @@ export function ExampleBoard() {
                             <ExampleCardImplementation
                               key={card.id}
                               {...cardProps}
-                              githubUsername={"bumbaiya"}
+                              githubUsername={GITHUB_USERNAME}
                             />
                           )}
                         </DynamicBoardCard>
