@@ -14,6 +14,7 @@ export function ProjectInfoModal(props: CustomModalProps) {
           <button
             type="button"
             className="flex size-7 cursor-pointer items-center justify-center rounded-md p-1 hover:bg-gray-200"
+            autoFocus
             onClick={() => props.onChange(false)}
           >
             <XIcon />
