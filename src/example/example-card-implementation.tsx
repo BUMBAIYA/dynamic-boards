@@ -10,7 +10,7 @@ import {
   GitHubMetricsCard,
   GitHubFollowersCard,
 } from "@/example/components/github-cards";
-import { GITHUB_CARD_TYPE_TO_ICON_MAPPING } from "./card-type-to-icon-mapping";
+import { GITHUB_CARD_TYPE_TO_ICON_MAPPING } from "@/example/card-type-to-icon-mapping";
 
 export type CardImplementationProps =
   DynamicBoardCardChildrenProps<MockCardContent> & {

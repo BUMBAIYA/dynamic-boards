@@ -6,6 +6,7 @@ import {
 } from "@/example/context/example-board-context";
 import { useDynamicBoard } from "@/core/hooks/useDynamicBoard";
 import { AddEditCard } from "@/example/components/add-edit-card";
+import { ProjectInfoModal } from "@/example/components/project-info-modal";
 import type { MockCardContent } from "@/example/types";
 
 export interface ExampleBoardProviderProps {
@@ -14,6 +15,7 @@ export interface ExampleBoardProviderProps {
 
 export function ExampleBoardProvider({ children }: ExampleBoardProviderProps) {
   const { addCard, updateCard } = useDynamicBoard<MockCardContent>();
+  const [showProjectInfoModal, setShowProjectInfoModal] = useState(true);
   const [showOpenEditModal, setShowOpenEditModal] = useState<
     ExampleBoardContextType["showOpenEditModal"]
   >({
@@ -23,7 +25,12 @@ export function ExampleBoardProvider({ children }: ExampleBoardProviderProps) {
 
   return (
     <ExampleBoardContext.Provider
-      value={{ showOpenEditModal, setShowOpenEditModal }}
+      value={{
+        showOpenEditModal,
+        setShowOpenEditModal,
+        showProjectInfoModal,
+        setShowProjectInfoModal,
+      }}
     >
       {children}
       <AddEditCard
@@ -57,6 +64,12 @@ export function ExampleBoardProvider({ children }: ExampleBoardProviderProps) {
             data: null,
           });
         }}
+      />
+      {/* This is the example project info modal. */}
+      <ProjectInfoModal
+        open={showProjectInfoModal}
+        onChange={setShowProjectInfoModal}
+        closeOnClickOutside={false}
       />
     </ExampleBoardContext.Provider>
   );
