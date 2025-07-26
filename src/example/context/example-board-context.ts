@@ -36,6 +36,8 @@ export interface ExampleBoardContextType {
    * @param modalData.data.customCardData - The customCardData for the modal. Only need when editing a card.
    */
   setShowOpenEditModal: (modalData: AddEditCardModalState) => void;
+  showProjectInfoModal: boolean;
+  setShowProjectInfoModal: (show: boolean) => void;
 }
 
 export const ExampleBoardContext =
